@@ -1,0 +1,13 @@
+<h1>Find Friends</h1> 
+<h2>People You May Know</h2>
+<p>
+  <% @users.each do |user| %>
+    <tr>
+      <td><p><b><%= user.uname %></b></p></td>
+      <%= link_to "Add Friend", friendships_path(:friend_id) %>  
+      <%= link_to "Remove Friend", friendships_path(:friend_id),
+      method: :delete,
+              data: { confirm: 'Are you sure?' }  %>  
+    </tr><br>
+  <% end %>
+  </p>
