@@ -1,0 +1,11 @@
+<h1> Forget Password</h1>
+<p>
+	<%= form_tag(url: password_resets_path) do %>
+      <%= label_tag :email %>
+      <%= email_field_tag :email %>
+
+      <%= submit_tag "Submit" %>
+    <% end %>
+    <%# end %>
+</p>
+ 

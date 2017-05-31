@@ -4,10 +4,8 @@
   <% @users.each do |user| %>
     <tr>
       <td><p><b><%= user.uname %></b></p></td>
-      <%= link_to "Add Friend", friendships_path(:friend_id) %>  
-      <%= link_to "Remove Friend", friendships_path(:friend_id),
-      method: :delete,
-              data: { confirm: 'Are you sure?' }  %>  
+      <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>  
+       
     </tr><br>
   <% end %>
   </p>

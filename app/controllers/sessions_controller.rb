@@ -6,7 +6,7 @@ def new
    user = User.find_by_uname(params[:uname])
 
     if user && User.find_by_password(params[:password])
-        
+        log_in user
         redirect_to user
     else
         flash.now[:error] = 'Invalid email/password combination'
@@ -16,6 +16,6 @@ def new
   def destroy
     session[:user_id] = nil
     flash[:notice] = "You have been logged out."
-    redirect_to root_url
+    redirect_to new_session_path
   end
 end

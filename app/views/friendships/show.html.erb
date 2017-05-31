@@ -1,1 +1,23 @@
-<p>Added a friend Successfully</p>
+<h1>My Profile</h1>
+
+<p>Username: <%= current_user.uname %></p>
+
+
+<h2>Friends</h2>
+<ul>
+  <% for friendship in current_user.friendships %>
+    <li>
+      <%= friendship.friend.uname %>
+      (<%= link_to "remove", friendship, :method => :delete %>)
+    </li>
+  <% end %>
+</ul>
+
+<p><%= link_to "Find Friends", users_path %></p>
+
+<h2>Friended by Users</h2>
+<ul>
+  <% for user in current_user.inverse_friends %>
+    <li><%= user.uname %></li>
+  <% end %>
+</ul>

@@ -1,7 +1,8 @@
+<%if loggedin %>
 <h1> My Profile </h1>
 <p>
 	<strong>Firstname:</strong>
-    <%= @user.first_name %>
+    <%= current_user.first_name %>
 </p>
 <p>
 	<strong>Lastname:</strong>
@@ -9,7 +10,7 @@
 </p>
 <p>
 	<strong>Username:</strong>
-    <%= @user.email %>
+    <%= @user.uname %>
 </p>
 <p>
 	<strong>Email:</strong>
@@ -19,5 +20,11 @@
 	<strong>Image:</strong>
     <%= @user.image %>
 </p>
+<p><%= link_to "view profile",friendship_path,:method =>
+:get %></p>
 <p><%= link_to "friends",friend_path %></p>
-<p><%= link_to "LogOut",users_path(@user) %></p>
+<p><%= link_to "LogOut",session_path(current_user), method: :delete %></p>
+<%else%>
+<h1>login first</h1>
+<%= link_to "login", new_session_path %>
+<%end%>

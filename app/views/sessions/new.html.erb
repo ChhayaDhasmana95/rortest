@@ -9,9 +9,15 @@
     <%= text_field_tag :uname, params[:uname] %>
   </p>
   <p>
-    <%= label_tag :password %><br />
+    <%= label_tag :password %>
+    <br />
     <%= password_field_tag :password %>
   </p>
+  <%= check_box_tag :remember_me %>
+  <%= label_tag :remember_me %>
   <p><%= submit_tag "Log in" %></p>
+  
 <% end %>
+<%= link_to "(forget password)",password_reset_new_path %>
 </p>
+<p>New User ? <%= link_to "Sign Up",new_user_path %></p>
