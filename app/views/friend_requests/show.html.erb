@@ -1,0 +1,9 @@
+
+
+<% if (frs = FriendRequest.where(friend: current_user)).present? %>
+   <% frs.each do |fr| %>
+       <li><%= fr. %></li>
+   <% end %>
+<% else %>
+    You don't have any friend requests
+<% end %>

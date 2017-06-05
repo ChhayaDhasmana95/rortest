@@ -1,19 +1,27 @@
 class PasswordResetController < ApplicationController
+  def index
+    
+  end
   def new
     #user=User.find_by(:email)
   end
+
   
   def create
     
-  	@user = User.find_by(email: params[:email].downcase)
+  	@user = User.find_by(email: params[:email])
+    
   	if @user
-     @user.create_reset_digest
-     @user.send_password_reset_email
-     redirect_to root_url
-    else
-	 render 'new'
+       @xyz= @user.update(password: params[:new_password])
+       
+       redirect_to new_session_path  
+      
+   else
+    redirect_to password_reset_new_path
+     
+    
     end
   end 
-  def edit
-  end
+
+  
 end

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
 def new
 	@user=User.new
 end
@@ -29,12 +28,16 @@ def create
     end
   end
   def destroy
-  	 @friend=User.find(params[friend.id])
+  	 @user=User.find(params[friend.id])
   	 @user.destroy
   end
   
   private
   def user_params
   	params.require(:user).permit(:first_name,:last_name,:uname,:email,:password)
+  end
+  def verify_owner
+    @user ||= User.find(params[:id])
+    redirect_to root_url unless owner?(@user)
   end
 end
