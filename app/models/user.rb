@@ -1,18 +1,25 @@
 class User < ApplicationRecord
-	
-  has_many :friend_requests, dependent: :destroy
-  has_many :pending_requests, through: :friend_requests,source: :friend
-  
-
-	has_many :friendships,-> {where(accepted:false) }
-	has_many :friends,through: :friendships,source: :user
-  has_many :inverse_friendships,-> {where(accepted:false) }, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+	mount_uploader :image, ImageUploader
+	has_many :friendships
+   has_many :friends, :through => :friendships
 
 	validates :email,:uname, uniqueness:true, :on=> :create
  
 	#validates :password,inclusion: { in: %w( & * $ %) }
-    
+     has_many :requested_friendships, -> { where(status: "pending")}, :class_name => "Friendship",:foreign_key => "friend_id"
+   has_many :requested_friends, :through => :requested_friendships, :source => :user
+
+
+   has_many :pending_friendships, -> { where(status: "requested")}, :class_name => "Friendship",:foreign_key => "friend_id"
+   has_many :pending_friends, :through => :pending_friendships, :source => :user
+
+
+   has_many :accepted_friendships, -> { where(status: "accepted")}, :class_name => "Friendship",:foreign_key => "friend_id"
+   has_many :accepted_friends, :through => :accepted_friendships, :source => :user
+
+   has_many :conversations
+   has_many :exchanges, :through => :conversations
+
 end
 
 

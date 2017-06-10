@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   post 'password_reset/new', to: "password_reset#create"
   get 'password_reset/edit'
 
-  resources :users
+  resources :users do
 
-  resources :friendships
-
+  resources :friendships do
+    resources :messages
+  end
+   end
   get '/friend', to: "friendships#friend"
   
   resources :sessions

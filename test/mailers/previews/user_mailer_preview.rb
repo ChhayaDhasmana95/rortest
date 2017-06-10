@@ -1,8 +1,9 @@
 # Preview all emails at http://localhost:3000/rails/mailers/user_mailer
 class UserMailerPreview < ActionMailer::Preview
-def password_reset
-    user = User.first
-    user.reset_token = User.new_token
-    UserMailer.password_reset(user)
+
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/signup_confirmation
+  def signup_confirmation
+    UserMailer.signup_confirmation
   end
+
 end

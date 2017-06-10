@@ -1,14 +1,5 @@
-<h1> User List</h1> 
-<h2>People You May Know</h2>
-
-  <% @users.each do |user| %>
-    <tr>
-      <td><p><b><%= user.uname %></b></p></td>
-      </tr>
-  <% end %><br>
-  <hr>
+<h1>Welcome to this new Application</h1>
   <%= link_to "Sign Up",new_user_path(@user) %><br>
   <p><%= link_to "SignIn",new_session_path(:user_id) %><p>
-  
   
   

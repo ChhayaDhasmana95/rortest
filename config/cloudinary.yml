@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dvtbj60zk
+  api_key: '752128274756658'
+  api_secret: sqD9yroAzrq0DLwBzY-AIgsMRBE
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dvtbj60zk
+  api_key: '752128274756658'
+  api_secret: sqD9yroAzrq0DLwBzY-AIgsMRBE
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dvtbj60zk
+  api_key: '752128274756658'
+  api_secret: sqD9yroAzrq0DLwBzY-AIgsMRBE
+  enhance_image_tag: true
+  static_image_support: false

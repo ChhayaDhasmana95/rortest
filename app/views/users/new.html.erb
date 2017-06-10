@@ -8,7 +8,7 @@
         this article from being saved:
       </h2>
       <ul>
-        <% @users.errors.full_messages.each do |msg| %>
+        <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
@@ -17,7 +17,7 @@
 <% end %>
 
 <%= form_for @user do |f| %>
-  
+  <h1>Create your account</h1>
   <p>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>

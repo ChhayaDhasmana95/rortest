@@ -1,28 +1,64 @@
 class FriendshipsController < ApplicationController
+def index
+    @user=User.find(params[:id])
+      @all_users = User.where.not(id: @user.id ) - @user.friends
+    debugger
+    @accepted_friends = @user.accepted_friends
+
+    @pending_friends = @user.pending_friends 
+    @requested_friends = @user.requested_friends  
+
+end
+ def create
+    @friendship_requested = current_user.friendships.build(:friend_id => params[:friend_id],:status => "requested")
+    
+    user = User.find_by(id: params[:friend_id])
+    @friendship_pending = user.friendships.build(:friend_id => current_user.id,:status => "pending")
+    
+    if @friendship_requested.save && @friendship_pending.save
+      flash[:notice] = "Friend Added"
+      redirect_to user_path(current_user)
+    else
+     flash[:notice] = "Unable to add friend"
+    redirect_to user_path(current_user)
+   end
+end
+
+
+def update
+    
+     update_user_status = Friendship.where(:user_id => current_user.id , :friend_id => params[:id])
+     update_friend_status = Friendship.where(:user_id => params[:id] , :friend_id => current_user.id)
+     
+     if update_user_status.update(:status => "accepted") && update_friend_status.update(:status => "accepted")
+            flash[:notice] = "Friend Request Accepted"
+            redirect_to user_path(current_user)
+     else
+           flash[:notice] = "Unable To Accept Friend Request"
+           redirect_to user_path(current_user)
+
+     end   
+ 
+end
+
+
+
+def destroy
+    friendship_to_delete= Friendship.where(:user_id => current_user.id, :friend_id => params[:id]).first
+    reverse_friendship_to_delete= Friendship.where(:user_id => params[:id], :friend_id => current_user).first
+
+    if friendship_to_delete.destroy &&  reverse_friendship_to_delete.destroy
+        flash[:notice] = "Friend Deleted"
+        redirect_to user_path(current_user)
+    else
+        flash[:notice] = "Unable to delete Friend"
+        redirect_to user_path(current_user)
+    end
+end
 
 def index
 	@frienships=Friendship.all
 end
 
-def create
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
-    if @friendship.save
-      flash[:notice] = "Added friend."
-      redirect_to friendship_path(:friend_id)
-    else
-      flash[:error] = "Unable to add friend."
-      redirect_to root_url
-    end
-  end
-  
 
-  def destroy
-    @friendship = current_user.friendships.find(params[:id])
-    @friendship.destroy
-    flash[:notice] = "Removed friendship."
-    redirect_to friendship_path(:friend_id)
-end  
-def friend
-  @users = User.all
-end
 end
